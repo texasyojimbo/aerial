@@ -1,0 +1,8 @@
+7/23/2016	
+* Installed Raspbian Jesse Lite
+* Expanded OS partition
+* Ran raspi-config, made the following changes: enabled camera, enabled I2C, enabled SSH, changed keyboard to en_US/101key, changed localization to en_US-UTF-8, changed timezone to US/Central.
+* Edited /etc/wpa-supplicant/wpa-supplicant.conf
+* sudo apt-get install git
+* sudo apt-get install vim
+* sudo apt-get update
