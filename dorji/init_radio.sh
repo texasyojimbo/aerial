@@ -17,27 +17,23 @@
 ## 10 RXD             17 TXD
 ##
 ## Purpose: The purpose of this is to 
-## turn off the PTT and Sleep mode on
-## the DRA818V, then to test UART by
-## running handshake.py. This Python 
-## script sends a handshake to the 
-## DRA818V.
+## turn off the PTT and Sleep mode.
 ##
 ########################################     
 
-
-if [ ! -f /sys/class/gpio/gpio17/value ]
+########################################
+##
+## init_gpio [gpio#] [direction] [value]
+##
+########################################
+function init_gpio () {
+if [ ! -f /sys/class/gpio/gpio$1/value ]
 then
-	echo 17 > /sys/class/gpio/export
+	echo $1 > /sys/class/gpio/export
 fi
-if [ ! -f /sys/class/gpio/gpio27/value ]
-then 
-	echo 27 > /sys/class/gpio/export
-fi
+echo $2 > /sys/class/gpio/gpio$1/direction
+echo $3 > /sys/class/gpio/gpio$1/value
+}
 
-echo out > /sys/class/gpio/gpio17/direction
-echo out > /sys/class/gpio/gpio27/direction
-echo 1 > /sys/class/gpio/gpio17/value
-echo 1 > /sys/class/gpio/gpio27/value
-sleep 1
-/home/pi/handshake.py
+init_gpio 17 out 1
+init_gpio 27 out 1
