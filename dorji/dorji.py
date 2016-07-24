@@ -2,7 +2,7 @@
 
 ########################################
 ##
-## handshake.py
+## dorji.py
 ## ------------
 ## Author: ad5nl@arrl.org
 ## Date: July 2016
