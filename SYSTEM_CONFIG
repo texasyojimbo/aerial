@@ -9,4 +9,7 @@
 * sudo apt-get install python-pip python-dev build-essential
 * sudo python -m pip install pyserial
 * edit /boot/config.txt and change enable_uart=0 to enable_uart=1
+
+7/24/2016
 * sudo apt-get install sox libsox-fmt-all
+
