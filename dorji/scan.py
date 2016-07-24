@@ -2,47 +2,23 @@
 
 import sys
 import serial
+import getopt
+from dorji import handshake
+from dorji import scan
 
-device = 'DORJI DRA818V'
-baudrate = 9600
-handshake_request = 'AT+DMOCONNECT\r\n'
-expected_response = '+DMOCONNECT:0\r\n'
-default_serial = '/dev/serial0'
 
-total = len(sys.argv)
-cmdargs = sys.argv
+frequency = 144.39
 
-if  total > 1:
-	ttydev = str(cmdargs[1])
+try:
+	opts, args = getopt.getopt(sys.argv[1:],"r:",["rx_freq="])
+except getopt.GetoptError:
+	print "scan.py -r <rx_freq>"
+	exit(2)
+for opt, arg in opts:
+	if opt in ("-r", "--rx-freqs"):
+		frequency = float(arg)
+
+if handshake() == 0:
+	exit(scan(frequency))
 else:
-	ttydev = default_serial
-
-if total > 2:
-	command_params = str(cmdargs[2])
-else:
-	command_params = '144.3900\r\n'
-
-command = "S+%s" % command_params
-command = command + "\r\n"
-
-print ("Attempting handshake with %s on: %s " % (device,ttydev))
-
-ser = serial.Serial(port=ttydev,baudrate=baudrate)
-
-ser.write(handshake_request)
-response = ser.readline()
-
-if str(response) == expected_response:
-	print ("Success: %s " % str(response))
-	print ("Attempting to scan frequency: %s" % command_params)
-	ser.write(command)
-	response2 = ser.readline()
-	if str(response2) == "S=0\r\n":
-		print ("Channel Busy: %s" % str(response2))
-		exit(1)
-	else:
-		print ("Channel Clear: %s" % str(response2))
-		exit(0)
-else:
-	print ("Fail: %s " % str(response))
 	exit(1)

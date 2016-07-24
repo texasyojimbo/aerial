@@ -2,10 +2,9 @@
 
 import sys
 import serial
-from dorji import uart_transaction
+import getopt
 from dorji import handshake
 from dorji import tune
-import getopt
 
 
 gbx = 0
@@ -23,7 +22,6 @@ except getopt.GetoptError:
 for opt, arg in opts:
 	if opt in ("-g", "--gbv"):
 		gbx = int(arg)
-			
 	elif opt in ("-t", "--tfv"):
 		txf = float(arg)
 	elif opt in ("-r", "--rfv"):
@@ -39,7 +37,7 @@ if rxf == 0:
 	rxf = txf
 
 if handshake() == 0:
-	tune(gbx,txf,rxf,txc,sqv,rxc)
+	exit(tune(gbx,txf,rxf,txc,sqv,rxc))
 else:
 	exit(1)
 
