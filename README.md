@@ -24,3 +24,5 @@ Files and descriptions to be included below.
 	scan.py 	-- Use scanning function of DRA818V to determine if channel is in use (e.g. before transmitting)
 
 	tune.py 	-- Set transmit and receive channel string on DRA818V
+
+	ptt.sh		-- Functions for keying the radio
