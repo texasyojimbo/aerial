@@ -2,48 +2,44 @@
 
 import sys
 import serial
+from dorji import uart_transaction
+from dorji import handshake
+from dorji import tune
+import getopt
 
-device = 'DORJI DRA818V'
-baudrate = 9600
-handshake_request = 'AT+DMOCONNECT\r\n'
-expected_response = '+DMOCONNECT:0\r\n'
-expected_response2 = '+DMOSETGROUP:0\r\n'
-default_serial = '/dev/serial0'
 
-total = len(sys.argv)
-cmdargs = sys.argv
+gbx = 0
+txf = 144.39
+rxf = 0
+txc = "0000"
+sqv = 1
+rxc = "0000"
 
-if  total > 1:
-	ttydev = str(cmdargs[1])
+try: 
+	opts, args = getopt.getopt(sys.argv[1:],"g:t:r:c:s:C:",["gbw=","tfv=","rfv=","tx_ctcss=","sq=","rx_ctcss="])
+except getopt.GetoptError:
+	print "tune.py -g <gbw> -t <tfv> -r <rfv> -c <tx_ctcss> -C <rx_ctcss> -s <squelch>"
+	exit(2)
+for opt, arg in opts:
+	if opt in ("-g", "--gbv"):
+		gbx = int(arg)
+			
+	elif opt in ("-t", "--tfv"):
+		txf = float(arg)
+	elif opt in ("-r", "--rfv"):
+		rxf = float(arg)
+	elif opt in ("-c", "--tx_ctcss"):
+		txc = arg
+	elif opt in ("-C", "--rx_ctcss"):
+		rxc = arg
+	elif opt in ("-s", "--sq"):
+		sqv = int(arg)
+
+if rxf == 0:
+	rxf = txf
+
+if handshake() == 0:
+	tune(gbx,txf,rxf,txc,sqv,rxc)
 else:
-	ttydev = default_serial
-
-if total > 2:
-	command_params = str(cmdargs[2])
-else:
-	command_params = '0,144.3900,144.3900,0000,4,0000\r\n'
-
-command = "AT+DMOSETGROUP=%s" % command_params
-command = command + "\r\n"
-
-print ("Attempting handshake with %s on: %s " % (device,ttydev))
-
-ser = serial.Serial(port=ttydev,baudrate=baudrate)
-
-ser.write(handshake_request)
-response = ser.readline()
-
-if str(response) == expected_response:
-	print ("Success: %s " % str(response))
-	print ("Attempting to set string: %s" % command_params)
-	ser.write(command)
-	response2 = ser.readline()
-	if str(response2) == expected_response2:
-		print ("Success: %s " % str(response2))
-		exit(0)
-	else:
-		print ("Failed: $s " % str(response2))
-		exit(1)
-else:
-	print ("Fail: %s " % str(response))
 	exit(1)
+
