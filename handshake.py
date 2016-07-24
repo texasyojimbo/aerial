@@ -19,33 +19,25 @@
 import sys
 import serial
 
-def handshake( serial_device ):
-	device = 'DORJI DRA818V'
-	baudrate = 9600
-	handshake_request = 'AT+DMOCONNECT\r\n'
-	expected_response = '+DMOCONNECT:0\r\n'
-	default_serial = '/dev/serial0'
-
+def uart_transaction( device,ttydev,baudrate,request,expected_response ): 
 	total = len(sys.argv)
 	cmdargs = sys.argv
-
-	if  total > 1:
-		ttydev = str(serial_device)
-	else:
-		ttydev = default_serial
-
 	print ("Attempting handshake with %s on: %s " % (device,ttydev))
-
 	ser = serial.Serial(port=ttydev,baudrate=baudrate)
-
-	ser.write(handshake_request)
+	ser.write(request)
 	response = ser.readline()
-
-	if str(response) == expected_response:
+	if expected_response in str(response):
 		print ("Success: %s " % str(response))
 		exit(0)
 	else:
 		print ("Fail: %s " % str(response))
 		exit(1)
+
+def handshake( serial_device ):
+        device = 'DORJI DRA818V'
+	baud = 9600
+	serial = '/dev/serial0'
+	uart_transaction( device,serial,baud,"AT+DMOCONNECT\r\n","+DMOCONNECT:0\r\n" )
+
 
 handshake( "/dev/serial0" )
