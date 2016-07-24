@@ -11,7 +11,8 @@ Files and descriptions to be included below.
 
 SYSTEM_CONFIG -- this is a text file that will describe all the changes made to Raspbian Jesse Lite as I work on this project.
 
-handshake.py -- Handshake with DORJI DRA818V
-init_radio.sh -- wrapper for handshake.py
-scan.py -- Use scanning function of DRA818V to determine if channel is in use (e.g. before transmitting)
-tune.py -- Set transmit and receive channel string on DRA818V
+dorji.py 	-- utility functions for DORJI DRA818V
+handshake.py 	-- Handshake with DORJI DRA818V
+init_radio.sh 	-- wrapper for handshake.py
+scan.py 	-- Use scanning function of DRA818V to determine if channel is in use (e.g. before transmitting)
+tune.py 	-- Set transmit and receive channel string on DRA818V
