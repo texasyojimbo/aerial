@@ -29,7 +29,7 @@
 function init_gpio () {
 if [ ! -f /sys/class/gpio/gpio$1/value ]
 then
-	echo $1 > /sys/class/gpio/export
+	gpio export $1 $2
 fi
 echo $2 > /sys/class/gpio/gpio$1/direction
 echo $3 > /sys/class/gpio/gpio$1/value

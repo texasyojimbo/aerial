@@ -31,9 +31,16 @@
 #################################
 function gpio_toggle () {
 	if [ -f /sys/class/gpio/gpio$1/value ]; then
-		echo 0 > /sys/class/gpio/gpio$1/value
-		$2
-		echo 1 > /sys/class/gpio/gpio$1/value
+		INIT_STATE=$(cat /sys/class/gpio/gpio$1/value)
+		if [ $INIT_STATE == "1" ]; then
+			echo 0 > /sys/class/gpio/gpio$1/value
+			$2
+			echo 1 > /sys/class/gpio/gpio$1/value
+		else
+			echo 1 > /sys/class/gpio/gpio$1/value
+			$2
+			echo 0 > /sys/class/gpio/gpio$1/value
+		fi
 		return 0
 	else
 		return 1

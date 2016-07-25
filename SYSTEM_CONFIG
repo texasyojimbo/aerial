@@ -13,3 +13,5 @@
 7/24/2016
 * sudo apt-get install sox libsox-fmt-all
 
+7/25/2016
+* sudo apt-get install wiringpi
