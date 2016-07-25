@@ -13,7 +13,7 @@ Files and descriptions to be included below.
 
 	SYSTEM_CONFIG -- this is a text file that will describe all the changes made to Raspbian Jesse Lite as I work on this project.
 
-/dorji
+/comms
 
 	dorji.py 	-- utility functions for DORJI DRA818V
 
