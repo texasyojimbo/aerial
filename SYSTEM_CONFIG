@@ -15,3 +15,24 @@
 
 7/25/2016
 * sudo apt-get install wiringpi
+
+7/272016
+* sudo apt-get install i2c-tools
+* Install RTIMULib2 following instructions from http://kingtidesailing.blogspot.com/2016/02/hoe-to-setup-mpu-9250-on-raspberry-pi_25.html
+** sudo apt-get install cmake
+** sudo apt-get install octave
+** mkdir /home/pi/kts
+** cd ~/kts
+** git clone https://github.com/richards-tech/RTIMULib2.git
+** cd RTIMULib2/Linux/RTIMULibCal
+** make -j4
+** sudo make install
+** cp -r /home/pi/kts/RTIMULib2/RTEllipsoidFit/ /home/pi/kts
+** sudo vim /etc/modules; include i2c-dev and i2c-bcm2708
+** sudo vim /etc/udev/rules.d/90-i2c.rules; add KERNEL=="i2c=[0-7]",MODE="0666"
+** sudo vim /boot/config.txt; add dtparam=i2c1_baudrate=400000
+** sudo git clone https://github.com/OldCC/scripts
+* sudo apt-get install python-smbus
+
+8/3/2016
+* sudo apt-get install bc

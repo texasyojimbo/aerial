@@ -9,11 +9,12 @@ for my high altitude ballooning project.
 
 Files and descriptions to be included below.
 
-/
+/	Root (/home/pi/aerial)
 
 	SYSTEM_CONFIG -- this is a text file that will describe all the changes made to Raspbian Jesse Lite as I work on this project.
 
-/comms
+
+/comm	Communication subsystems (VHF Radio, WiFi, Buzzers, Blinkers)
 
 	dorji.py 	-- utility functions for DORJI DRA818V
 
@@ -26,3 +27,32 @@ Files and descriptions to be included below.
 	tune.py 	-- Set transmit and receive channel string on DRA818V
 
 	ptt.sh		-- Functions for keying the radio
+
+
+/data	Data store 
+
+	/comm
+	
+	/nav	
+
+	/sensor
+
+	/sys
+
+
+/nav	Navigation subsystems (GPS, IMU)
+
+	getNMEA.sh	-- gets NMEA string from USB GPS dongle and directs to log file
+
+	gpsLogger.sh	-- Wrapper for getNMEA.sh, controls logging of NMEA data
+
+	getPos.sh	-- Extract position from GPGGA sentences in NMEA log
+
+	archiveLogs.sh	-- Tarballs old NMEA logs
+
+
+/sensor	Sensors and Cameras
+
+	/cam		-- Cameras
+
+	/wx		-- Weather sensors (thermometers, barometer, hygrometer, UV light)
