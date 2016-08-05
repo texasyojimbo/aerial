@@ -2,27 +2,31 @@
 
 ###############################
 ##
-## ptt.sh 
-## ------
+## comm_functions.sh 
+## -----------------
 ## Author: ad5nl@arrl.net
-## Date: July 2016
+## Date: August 2016
 ##
 ## Purpose: The purpose of this
-## script is to trigger the PTT
-## line for the DORJI DRA818V.
-## This line is triggered by 
-## pulling voltage on pin 5 to
-## ground.This will be done by 
-## echoing 0 (off) to GPIO17 
-## (pin 11).
-## 
-## Usage: ptt.sh "[command]"
-##
-## where command is command 
-## that will run while the PTT
-## is down (ex. play wav file).
+## script is to declare bash
+## functions for use by comms
+## devices.
 ##
 ###############################
+
+########################################
+##
+## init_gpio [gpio#] [direction] [value]
+##
+########################################
+function init_gpio () {
+if [ ! -f /sys/class/gpio/gpio$1/value ]
+then
+        gpio export $1 $2
+fi
+echo $3 > /sys/class/gpio/gpio$1/value
+}
+
 
 #################################
 ##
@@ -45,15 +49,6 @@ function gpio_toggle () {
 	else
 		return 1
 	fi
-}
-
-#################################
-##
-## ptt [command]
-##
-#################################
-function ptt () {
-	gpio_toggle 17 "$1"
 }
 
 #################################
@@ -228,9 +223,4 @@ function alternate () {
 	done
 }
 
-######################################
-##
-## Main 
-##
-######################################
-ptt "$1"
+

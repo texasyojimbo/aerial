@@ -21,19 +21,11 @@
 ##
 ########################################     
 
-########################################
-##
-## init_gpio [gpio#] [direction] [value]
-##
-########################################
-function init_gpio () {
-if [ ! -f /sys/class/gpio/gpio$1/value ]
-then
-	gpio export $1 $2
-fi
-echo $2 > /sys/class/gpio/gpio$1/direction
-echo $3 > /sys/class/gpio/gpio$1/value
-}
+COMM_DIR="/home/pi/aerial/comm"
+PTT_GPIO=17
+SLP_GPIO=27
 
-init_gpio 17 out 1
-init_gpio 27 out 1
+source $COMM_DIR/comm_functions.sh
+
+init_gpio $PTT_GPIO out 1
+init_gpio $SLP_GPIO out 1

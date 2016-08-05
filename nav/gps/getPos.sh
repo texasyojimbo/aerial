@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUT_PATH="/home/pi/aerial/data/nav"
+OUT_PATH="/home/pi/aerial/data/nav/gps"
 NMEA_FILE="$OUT_PATH/nmea.txt"
 LAST_POS_FILE="$OUT_PATH/last_pos.txt"
 

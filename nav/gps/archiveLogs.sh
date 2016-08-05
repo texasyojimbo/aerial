@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ARCHIVE_PATH="/home/pi/aerial/data/nav/archive"
+ARCHIVE_PATH="/home/pi/aerial/data/nav/gps/archive"
 ARCHIVE_PATTERN="$ARCHIVE_PATH/archive*.nmea.txt"
 DATE=$(date +%Y%m%d_%H%M)
 TARBALL_FILE="$ARCHIVE_PATH/archive.$DATE.nmea.tgz"
