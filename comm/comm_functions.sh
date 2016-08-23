@@ -57,7 +57,7 @@ function gpio_toggle () {
 ##
 #################################
 function dit () {
-	sleep 0.1 && gpio_toggle $1 "sleep 0.1"
+	sleep 0.05 && gpio_toggle $1 "sleep 0.05"
 }
 
 #################################
@@ -66,7 +66,7 @@ function dit () {
 ##
 #################################
 function dah () {
-	sleep 0.1 && gpio_toggle $1 "sleep 0.3" 
+	sleep 0.05 && gpio_toggle $1 "sleep 0.15" 
 }
 
 ##################################
@@ -75,7 +75,7 @@ function dah () {
 ## 
 ##################################
 function sp () {
-	sleep 0.6
+	sleep 0.3
 }
 
 ###########################################
@@ -203,7 +203,7 @@ function key () {
 			dit $1 && dit $1 && dah $1 && dah $1 && dit $1 && dit $1&& sp
 			;;
 		" ")
-			sp
+			sp && sp && sp
 			;;
 		esac
 	done

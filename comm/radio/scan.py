@@ -6,7 +6,6 @@ import getopt
 from dorji import handshake
 from dorji import scan
 
-
 frequency = 144.39
 
 try:
